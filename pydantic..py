@@ -19,3 +19,5 @@ patient1_info = {'name': 'sagar', 'email':'abc@gmail.com', 'age': '30', 'weight'
 patient1 = Patient(**patient1_info)
 
 insert_patient_data(patient1)
+
+
