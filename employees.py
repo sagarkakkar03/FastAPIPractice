@@ -20,7 +20,7 @@ def get_employee_by_id(emp_id:int):
 @app.post('/add_employee', response_model=Employee)
 def add_employee(new_emp: Employee):
     for employee in employees_db:
-        if employee.id == new_emp.id:
+        if employee.id == new_emp.id: 
             raise HTTPException(status_code=400, detail="Employee already in the database")
     employees_db.append(new_emp)
     return new_emp
