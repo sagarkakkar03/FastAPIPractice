@@ -1,11 +1,12 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 import datetime
+from typing import Optional
 
 class Employee(BaseModel):
-    id: str
-    name: str
-    department: str
-    age: int 
+    id: str = Field(..., gt=0)
+    name: str = Field(..., min_length=3, max_length=50)
+    department: str = Field(...)
+    age: Optional[int] = Field(..., gt=0, lt=101)
 
 
 class Items(BaseModel):
@@ -13,4 +14,4 @@ class Items(BaseModel):
     name: str 
     category: str 
     date: datetime.date
-    
+ 
