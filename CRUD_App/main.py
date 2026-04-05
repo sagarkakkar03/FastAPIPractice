@@ -1,8 +1,15 @@
 from fastapi import FastAPI, HTTPException, Depends
 from sqlalchemy.orm import Session
-from database import engine, SessionLocal, Base 
+from .database import engine, SessionLocal, Base 
 from typing import List 
-import models, schema, crud 
+from . import schema
+from . import crud 
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="[%(asctime)s] - line %(lineno)d - %(levelname)s - %(message)s"
+)
 
 Base.metadata.create_all(bind=engine)
 
@@ -22,10 +29,12 @@ def get_db():
 # 1. create an employee
 @app.post('/create', response_model=schema.EmployeeOut)
 def create_employee(employee: schema.EmployeeCreate, db: Session=Depends(get_db)):
+    logging.info('Employee has been created.')
     return crud.create_employee(db, employee)
 
 @app.get('/employees', response_model=List[schema.EmployeeOut])
 def get_employees(db: Session= Depends(get_db)):
+    logging.info('Employee data has been retireved.')
     return crud.get_employees(db)
 
 
